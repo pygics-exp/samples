@@ -6,8 +6,8 @@ Created on 2017. 10. 25.
 
 from page import Page
 
-Page().top('Subpath Page New Sample')
+Page().header('Page SubModule Path')
 
-Page('/abs/subpath').top('Subpath Page Abstract Path')
+Page('/abs/subpath').header('Page SubModule Absolute Path')
 
-Page('rel').top('Subpath Page Relation Path')
+Page('rel').header('Page SubModule Relation Path')

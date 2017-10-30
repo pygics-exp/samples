@@ -5,21 +5,30 @@ Created on 2017. 10. 25.
 '''
 
 from page import *
+from page.w3c import *
 
-Page().top('Page New Sample')
+Page().header('Page Module Path')
 
-Page('/abs').top('Page Abstract Path')
+Page('/abs').header('Page Absolute Path')
 
-Page('rel').top('Page Relation Path')
+Page('rel').header('Page Relation Path')
 
 import subpath
 
-p = Page('/', cache=False)
-
-@main(p)
-def page_main(req, *argv, **kargs):
-    return DIV().html(
-        HEAD(1).html('jang'),
-        PARA().html('hyechurn')
+test_page = Page('/', cache=False)
+test_page.header(
+    Div().html(
+        H(2).html('Header Section')
     )
+)
+test_page.footer(
+    Div().html(
+        H(2).html('Footer Section')
+    )
+)
 
+@test_page.init
+def page_init(req, *argv, **kargs):
+    return Div().html(
+        H(1).html('Test Page'),
+    )
