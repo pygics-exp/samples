@@ -5,7 +5,7 @@ Created on 2017. 10. 25.
 '''
 
 from page import *
-from page.w3c import *
+from page.w3 import *
 
 Page().header('Page Module Path')
 
