@@ -37,7 +37,7 @@ my_page.footer(
     )
 )
 
-@my_page.init
+@my_page.init()
 def page_sample_init(req, *argv, **kargs):
     return W3.Div().html(
         W3.H(1).html('Init Section'),
@@ -47,17 +47,17 @@ def page_sample_init(req, *argv, **kargs):
         my_page.patch('page_sample_delete'),
     )
 
-@my_page.view
+@my_page.view()
 def page_sample_count(req, *argv, **kargs):
     my_get = my_page.get('page_sample_count')
     my_page.count += 1
     return W3.Div().html(
         W3.H(1).html('Count : %d' % my_page.count),
-        W3.Button(Text='text').opts(my_get.Send).html('Add'),
+        W3.Button().html('Add') >> my_get.event(),
         my_get
     )
 
-@my_page.view
+@my_page.view()
 def page_sample_post(req, *argv, **kargs):
     my_post = my_page.post('page_sample_post')
     
@@ -70,31 +70,31 @@ def page_sample_post(req, *argv, **kargs):
     
     return W3.Div().html(
         W3.H(1).html('Post Section'),
-        W3.Input(Type='text', Name='username', PlaceHolder=ph_username).opts(my_post.Data),
-        W3.Input(Type='text', Name='password', PlaceHolder=ph_password).opts(my_post.Data),
-        W3.Button(Text='text').opts(my_post.Send).html('Submit'),
+        W3.Input(Type='text', Name='username', PlaceHolder=ph_username) >> my_post.data(),
+        W3.Input(Type='password', Name='password', PlaceHolder=ph_password) >> my_post.data(),
+        W3.Button().html('Submit') >> my_post.event(),
         my_post,
         my_page.reload('page_sample_count'),
     )
 
-@my_page.view
+@my_page.view()
 def page_sample_delete(req, *argv, **kargs):
     my_del = my_page.delete('page_sample_delete')
     return W3.Div().html(
         W3.H(1).html('Deleting'),
-        W3.Button(Text='text').opts(my_del.Send).html('Delete'),
+        W3.Button().html('Delete') >> my_del.event(),
         my_del,
         my_page.reload('page_sample_count'),
     )
 
-@my_page.view
+@my_page.view()
 def page_sample_view_l1(req, *argv, **kargs):
     return W3.Div(Class='page_sample_view_l1').html(
         W3.H(2).html('Sample View L1'),
         my_page.patch('page_sample_view_l2')
     )
     
-@my_page.view
+@my_page.view()
 def page_sample_view_l2(req, *argv, **kargs):
     return W3.Div(Class='page_sample_view_l2').html(
         W3.H(4).html('Sample View L2'),
