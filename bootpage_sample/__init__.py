@@ -4,24 +4,27 @@ Created on 2017. 10. 25.
 @author: HyechurnJang
 '''
 
+import pygics
+import requests
+
 from page import W3
 from bootpage import BootPage
-from bootpage.theme.cisco import Theme
+from bootpage.theme import cisco
 
-bp = BootPage('/', 'BootPage', theme=Theme())
+bp = BootPage('/', 'BootPage', theme=cisco.Theme())
 
-overflow = bp.category(u'오버플로우', 'Cat1 Icon')
-cat2 = bp.category(u'카테고리 2', 'Cat2 Icon')
+overflow = bp.category(u'오버플로우', cisco.MenuIcon('newstatus'))
+cat2 = bp.category(u'카테고리 2', cisco.MenuIcon('newcheck'))
 
-@bp.menu(u'대쉬보드', 'Dashboard Icon')
+@bp.menu(u'대쉬보드', cisco.MenuIcon('newsummary'))
 def bp_menu1(req, *argv, **kargs):
     return W3.Div() >> (
-        W3.H(1) >> 'Head 1',
-        W3.H(2) >> 'Head 2',
-        W3.H(3) >> 'Head 3',
-        W3.H(4) >> 'Head 4',
-        W3.H(5) >> 'Head 5',
-        W3.H(6) >> 'Head 6',
+        W3.H(1) >> ('Head 1 ', W3.Small() >> 'Small 1'),
+        W3.H(2) >> ('Head 2 ', W3.Small() >> 'Small 1'),
+        W3.H(3) >> ('Head 3 ', W3.Small() >> 'Small 1'),
+        W3.H(4) >> ('Head 4 ', W3.Small() >> 'Small 1'),
+        W3.H(5) >> ('Head 5 ', W3.Small() >> 'Small 1'),
+        W3.H(6) >> ('Head 6 ', W3.Small() >> 'Small 1'),
         W3.P() >> u'''
 콜롬비아전을 앞두고 대부분이 가진 감정은 온통 불안이었다. 기대하는 쪽도, 기대하지 않는 쪽도 결과는 정해진 게 아니냐는 반응이 많았다. 상대의 전력과 장기간 우리가 보여준 경기력의 차이가 너무 컸다. 기대하고 응원하는 쪽도 결과보다는 내용에서 어떤 변화를 보여주길 희망하는 정도였다.  
 10일 저녁 수원월드컵경기장에서는 반전이 나왔다. 결과와 내용 모두 예상했던 것과 다르게 전개됐다. 경기 초반부터 적극적이고 용감한 모습에 지난 10월의 유럽 원정과는 뭔가 다름이 느껴졌다. 수비는 치밀하면서 영리했고, 공격은 빠르고 과감했다. K리그의 베테랑들과 주장 기성용이 중심을 잡았고, 에이스인 손흥민이 모처럼 멀티 골을 터트렸다. 그렇게 FIFA 랭킹 62위까지 추락한 한국이 13위의 콜롬비아를 2-1로 꺾었다.
@@ -43,7 +46,7 @@ def bp_menu1(req, *argv, **kargs):
     )
 
 @overflow
-@bp.menu('XY axis', 'All Icon')
+@bp.menu('XY axis', cisco.MenuIcon('newsummary'))
 def bp_overflow_all(req, *argv, **kargs):
     return W3.Div() >> (
         W3.H(1) >> 'XY axis',
@@ -52,7 +55,7 @@ def bp_overflow_all(req, *argv, **kargs):
     )
 
 @overflow
-@bp.menu('X axis', 'All Icon')
+@bp.menu('X axis', cisco.MenuIcon('newsummary'))
 def bp_overflow_x(req, *argv, **kargs):
     return W3.Div() >> (
         W3.H(1) >> 'X axis',
@@ -60,7 +63,7 @@ def bp_overflow_x(req, *argv, **kargs):
     )
 
 @overflow
-@bp.menu('Y axis', 'Device Icon')
+@bp.menu('Y axis', cisco.MenuIcon('newsummary'))
 def bp_overflow_y(req, *argv, **kargs):
     return W3.Div() >> (
         W3.H(1) >> 'Y axis',
@@ -68,20 +71,20 @@ def bp_overflow_y(req, *argv, **kargs):
     )
 
 @cat2
-@bp.menu('Y axis', 'EPG Icon')
+@bp.menu('Y axis', cisco.MenuIcon('newsummary'))
 def bp_submenu3(req, *argv, **kargs):
     return W3.Div() >> (
         W3.H(1) >> 'Sub Menu 3'
     )
 
 @cat2
-@bp.menu(u'서브메뉴 4', 'Endpoint Icon')
+@bp.menu(u'서브메뉴 4', cisco.MenuIcon('newsummary'))
 def bp_submenu4(req, *argv, **kargs):
     return W3.Div() >> (
         W3.H(1) >> 'Sub Menu 4'
     )
 
-@bp.menu(u'메뉴 2', 'Setting Icon')
+@bp.menu(u'메뉴 2', cisco.MenuIcon('analysis'))
 def bp_menu2(req, *argv, **kargs):
     return W3.Div() >> (
         W3.H(1) >> 'Menu 2'
@@ -89,6 +92,7 @@ def bp_menu2(req, *argv, **kargs):
 
 @bp.view()
 def bp_of_x(req, *argv, **kargs):
+    pygics.sleep(1)
     overflow = W3.P()
     for i in range(0, 100): overflow >> '----------'
     return W3.Div() >> (

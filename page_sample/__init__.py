@@ -27,7 +27,7 @@ my_page.footer(
     )
 )
 
-@my_page.init()
+@my_page.init(jang='jang')
 def page_sample_init(req, *argv, **kargs):
     return W3.Div() >> (
         W3.H(1) >> '######### Init Section #########',
@@ -36,7 +36,7 @@ def page_sample_init(req, *argv, **kargs):
         my_page('page_sample_delete'),
     )
 
-@my_page.view()
+@my_page.view('rd')
 def page_sample_count(req, *argv, **kargs):
     if req.method == 'DELETE': my_page.count -= 1
     else: my_page.count += 1
@@ -48,7 +48,7 @@ def page_sample_count(req, *argv, **kargs):
         my_get
     )
 
-@my_page.view()
+@my_page.view('cru')
 def page_sample_post(req, *argv, **kargs):
     if req.data:
         ph_username = req.data['username']
